@@ -9,31 +9,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --main-pink: #FF0050;
-            --accent-gold: #FFD700;
-            --luxury-black: #1a1a1a;
-        }
+        :root { --main-pink: #FF0050; --accent-gold: #FFD700; --luxury-black: #1a1a1a; --success-green: #2ecc71; }
+        body { font-family: 'Noto Naskh Arabic', serif !important; margin: 0; background-color: #f8f9fa; overflow-x: hidden; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
 
-        body { 
-            font-family: 'Noto Naskh Arabic', serif !important; 
-            margin: 0; background-color: #f8f9fa; overflow-x: hidden; 
-            transition: all 0.3s ease; -webkit-tap-highlight-color: transparent;
-        }
-
-        /* --- Header & Hero (بقية التصميم كما هو) --- */
         header { background: #fff; padding: 10px 6%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 22px; font-weight: 700; color: var(--main-pink); letter-spacing: 2px; }
         .admin-controls { display: flex; align-items: center; gap: 8px; }
         .login-box { display: none; gap: 5px; }
         .login-box input { padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.7rem; width: 130px; outline: none; }
         .menu-btn { background: #000; color: #fff; border: none; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; outline: none; }
+        
         .hero { height: 450px; width: 92%; margin: 15px auto 20px; background: var(--luxury-black); color: #fff; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; border-radius: 25px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2); position: relative; background-image: linear-gradient(45deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1350&q=80'); }
         .hero-content { position: relative; z-index: 2; text-align: center; padding: 20px; }
         .hero h1 { font-size: 3.5rem; margin: 0; text-shadow: 0 5px 15px rgba(0,0,0,0.5); letter-spacing: 5px; font-weight: 700; background: linear-gradient(to right, #fff, var(--accent-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 1.2rem; margin-top: 10px; color: #ddd; letter-spacing: 1px; }
 
-        /* --- Categories --- */
         .category-wrapper { width: 92%; margin: 0 auto 20px; overflow-x: auto; white-space: nowrap; display: flex; gap: 20px; padding: 10px 0; scrollbar-width: none; align-items: center; }
         .cat-item { background: transparent; border: none; padding: 5px 2px; font-size: 0.85rem; color: #777; cursor: pointer; transition: 0.3s ease; font-weight: 700; position: relative; }
         .cat-item.active { color: #000; }
@@ -43,77 +33,64 @@
         .lang-ar { background-color: var(--main-pink); }
         .lang-en { background-color: var(--accent-gold); color: #000; }
 
-        /* --- Products Grid & Cards --- */
         .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; padding: 0 4% 10px; }
-        .card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.3s; border: 1px solid #f0f0f0; }
+        .card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: 0.3s; border: 1px solid #f0f0f0; position: relative; }
         .card img { width: 100%; height: 210px; object-fit: cover; }
         .card-body { padding: 6px 10px 4px; }
         .card-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; display: block; color: #222; line-height: 1.3; }
+        
         .stars-sizes-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; font-size: 0.62rem; color: #777; }
-        .rating { color: var(--accent-gold); font-size: 9px; } 
+        .rating { color: var(--accent-gold); font-size: 9px; display: flex; align-items: center; gap: 1px; } 
+        .rating-val { color: #888; margin-left: 2px; font-weight: bold; }
+
         .info-row-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; font-size: 0.62rem; color: #777; }
-        .sold-count-inline { color: #aaa; font-size: 0.6rem; }
+        .sold-count-inline { color: #888; font-size: 0.65rem; font-weight: 500; }
+
         .price-tag { color: var(--main-pink); font-weight: 700; font-size: 1rem; display: block; margin: 2px 0 4px; }
         .currency-symbol { font-size: 0.85rem; margin: 0 1px; font-weight: 400; }
-        .card-actions { display: flex; gap: 5px; align-items: center; margin-top: 4px; padding-top: 5px; border-top: 1px solid #fafafa; }
-        .btn-buy { background: var(--main-pink); color: #fff; text-decoration: none; flex: 2; padding: 8px 0; border-radius: 50px; text-align: center; font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; }
-        .btn-view { background: var(--accent-gold); color: #000; text-decoration: none; flex: 1.3; padding: 8px 0; border-radius: 50px; text-align: center; font-weight: 700; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.3s; }
-        .btn-share { background: #fff; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #ddd; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #333; transition: 0.3s; }
-
-        /* --- تعديل زر عرض المزيد الراقي --- */
-        .load-more-section { 
-            text-align: center; 
-            padding: 40px 0 60px; 
-            display: none; /* مخفي افتراضياً لمنع الوميض */
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
         
-        .btn-load-more {
-            background: transparent;
-            color: var(--luxury-black);
-            border: 1px solid #ddd;
-            padding: 12px 40px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .admin-actions { position: absolute; top: 10px; left: 10px; display: none; flex-direction: column; gap: 5px; }
+        .admin-btn { width: 30px; height: 30px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .edit-btn { background: #fff; color: #000; }
+        .delete-btn { background: var(--main-pink); color: #fff; }
 
+        .card-actions { display: flex; gap: 5px; align-items: center; margin-top: 4px; padding-top: 5px; border-top: 1px solid #fafafa; }
+        .btn-buy { background: var(--main-pink); color: #fff; text-decoration: none; flex: 2; padding: 8px 0; border-radius: 50px; text-align: center; font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn-view { background: var(--accent-gold); color: #000; text-decoration: none; flex: 1.3; padding: 8px 0; border-radius: 50px; text-align: center; font-weight: 700; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        
+        .btn-share { background: #fff; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #ddd; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #333; transition: all 0.3s ease; }
+        .btn-share.copied { background: var(--success-green) !important; color: #fff !important; border-color: var(--success-green) !important; transform: scale(1.1); }
+
+        #copyToast { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.75); color: #fff; padding: 8px 20px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; z-index: 10000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; pointer-events: none; }
+        #copyToast.show { opacity: 1; visibility: visible; }
+
+        /* --- تعديل زر عرض المزيد الاحترافي --- */
+        .load-more-section { text-align: center; padding: 40px 0 80px; display: none; }
+        .btn-load-more { 
+            background: #fff; 
+            color: #1a1a1a; 
+            border: 2px solid #1a1a1a; 
+            padding: 12px 45px; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 0.9rem;
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
         .btn-load-more:hover {
-            border-color: var(--main-pink);
-            color: var(--main-pink);
-            background: #fff;
-            box-shadow: 0 5px 15px rgba(255, 0, 80, 0.1);
-            transform: translateY(-2px);
+            background: #1a1a1a;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .btn-load-more:active {
+            transform: translateY(-1px);
         }
 
-        .btn-load-more i {
-            font-size: 0.7rem;
-            transition: transform 0.3s ease;
-        }
-
-        .btn-load-more:hover i {
-            transform: translateY(3px);
-        }
-
-        /* حالة الانتهاء */
-        .finished-msg {
-            color: #bbb;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: none;
-        }
-
-        /* --- Sidebar & Admin --- */
-        #sidebar { position: fixed; top: 0; right: -350px; width: 300px; height: 100vh; background: #fff; z-index: 9999; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s; padding: 25px; box-sizing: border-box; overflow-y: auto; text-align: right; }
+        #sidebar { position: fixed; top: 0; right: -350px; width: 320px; height: 100vh; background: #fff; z-index: 9999; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s; padding: 25px; box-sizing: border-box; overflow-y: auto; text-align: right; }
         #sidebar.active { right: 0; }
         .admin-form input { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; }
 
@@ -135,8 +112,9 @@
 </header>
 
 <aside id="sidebar">
-    <h2 style="font-weight: 700;">إضافة منتج</h2>
+    <h2 id="formTitle" style="font-weight: 700;">إضافة منتج جديد</h2>
     <div class="admin-form">
+        <input type="hidden" id="editKey">
         <input type="text" id="pName" placeholder="اسم المنتج (Ar)">
         <input type="text" id="pNameEn" placeholder="Product Name (En)">
         <input type="number" id="pPrice" placeholder="السعر / Price">
@@ -146,8 +124,9 @@
         <input type="text" id="pColors" placeholder="الألوان / Colors">
         <input type="text" id="pLink" placeholder="رابط الشراء Ar">
         <input type="text" id="pLinkEn" placeholder="Purchase Link En">
-        <button onclick="saveProduct()" style="width:100%; padding:10px; background:#000; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:700;">نشر المنتج / Publish</button>
-        <button onclick="auth.signOut()" style="width:100%; margin-top:10px; padding:8px; background:#eee; border:none; border-radius:5px; cursor:pointer;">تسجيل خروج</button>
+        <button id="saveBtn" onclick="saveProduct()" style="width:100%; padding:10px; background:#000; color:#fff; border:none; border-radius:5px; cursor:pointer; font-weight:700;">نشر المنتج / Publish</button>
+        <button id="cancelEdit" onclick="resetForm()" style="width:100%; margin-top:5px; padding:8px; display:none; border:none; border-radius:5px; cursor:pointer;">إلغاء التعديل</button>
+        <button onclick="auth.signOut()" style="width:100%; margin-top:20px; padding:8px; background:#f5f5f5; border:none; border-radius:5px; cursor:pointer;">تسجيل خروج</button>
     </div>
 </aside>
 
@@ -155,19 +134,17 @@
     <button class="lang-switcher lang-ar" id="langBtn" onclick="toggleLanguage()">EN</button>
     <div class="hero-content">
         <h1 id="heroTitle">EXPRESS LUXURY</h1>
-        <p id="heroSub">Explore World Class Brands</p>
+        <p id="heroSub">اكتشف أرقى الماركات العالمية</p>
     </div>
 </section>
 
 <div class="category-wrapper" id="categoryBar"></div>
 <div class="container" id="productsGrid"></div>
 
+<div id="copyToast">تم النسخ</div>
+
 <div class="load-more-section" id="loadMoreSection">
-    <button id="loadMoreBtn" class="btn-load-more" onclick="loadMore()">
-        <span id="loadMoreText">عرض المزيد</span>
-        <i class="fas fa-chevron-down"></i>
-    </button>
-    <div id="finishedMsg" class="finished-msg">لقد وصلت لنهاية المجموعة</div>
+    <button id="loadMoreBtn" class="btn-load-more" onclick="loadMore()">عرض المزيد</button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
@@ -185,189 +162,195 @@
     const db = firebase.database();
     const auth = firebase.auth();
 
-    let currentLang = 'ar';
-    let allProducts = [];
-    let displayedCount = 12;
-    let currentActiveCat = 0;
+    let currentLang = 'ar', allProducts = [], displayedCount = 12, currentActiveCat = 0;
 
     const categories = [
         { ar: 'كل المنتجات', en: 'All Products' }, { ar: 'فساتين', en: 'Dresses' }, { ar: 'حقائب', en: 'Bags' },
         { ar: 'جاكيت', en: 'Jackets' }, { ar: 'بدلة اطفال', en: 'Kids Suits' }, { ar: 'أحذية', en: 'Shoes' },
-        { ar: 'إكسسوارات', en: 'Accessories' }, { ar: 'مكياج', en: 'Makeup' }, { ar: 'شفاه', en: 'Lips' },
-        { ar: 'ساعات', en: 'Watches' }, { ar: 'ملحقات هواتف', en: 'Phone Acc' }
+        { ar: 'إكسسوارات', en: 'Accessories' }, { ar: 'مكياج', en: 'Makeup' }, { ar: 'ساعات', en: 'Watches' }
     ];
 
-    function renderCategories() {
-        const catBar = document.getElementById('categoryBar');
-        catBar.innerHTML = '';
-        categories.forEach((cat, index) => {
-            const btn = document.createElement('div');
-            btn.className = `cat-item ${index === currentActiveCat ? 'active' : ''}`;
-            btn.innerText = currentLang === 'ar' ? cat.ar : cat.en;
-            btn.onclick = function() {
-                currentActiveCat = index;
-                displayedCount = 12;
-                renderProducts();
-                renderCategories();
-            };
-            catBar.appendChild(btn);
-        });
-    }
-
-    function toggleLanguage() {
-        currentLang = (currentLang === 'ar') ? 'en' : 'ar';
-        const html = document.getElementById('mainHtml');
-        html.dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
-        document.getElementById('langBtn').innerText = (currentLang === 'ar') ? 'EN' : 'AR';
-        document.getElementById('heroSub').innerText = (currentLang === 'ar') ? 'اكتشف أرقى الماركات العالمية' : 'Explore World Class Brands';
-        renderCategories(); 
-        renderProducts();
-    }
-
-    db.ref('products').on('value', (snapshot) => {
-        allProducts = [];
-        snapshot.forEach((child) => { allProducts.unshift(child.val()); });
+    auth.onAuthStateChanged(user => {
+        document.getElementById('sidebar').classList.toggle('active', !!user);
         renderProducts();
     });
 
-    function getDynamicStars() {
-        const rates = [4, 4.5, 5];
-        const rate = rates[Math.floor(Math.random() * rates.length)];
-        let stars = '';
-        for(let i=1; i<=5; i++) stars += i <= rate ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
-        return stars;
+    db.ref('products').on('value', (s) => {
+        allProducts = [];
+        s.forEach((c) => { 
+            let p = c.val();
+            p.key = c.key;
+            allProducts.unshift(p); 
+        });
+        renderProducts();
+    });
+
+    function getSales(key) {
+        let seed = 0;
+        for (let i = 0; i < key.length; i++) seed += key.charCodeAt(i);
+        let val = (seed % 3500) + 150;
+        return val > 1000 ? (val/1000).toFixed(1) + "k" : val;
     }
 
-    function getSoldCount() { return Math.floor(Math.random() * 400) + 50; }
+    function getRating(key) {
+        let ratings = [3.5, 4, 4, 4.5, 4.5, 4.5, 5, 5];
+        return ratings[key.charCodeAt(0) % ratings.length];
+    }
+
+    function generateStars(rating) {
+        let h = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) h += '<i class="fas fa-star"></i>';
+            else if (i - 0.5 <= rating) h += '<i class="fas fa-star-half-alt"></i>';
+            else h += '<i class="far fa-star"></i>';
+        }
+        return h;
+    }
 
     function renderProducts() {
         const grid = document.getElementById('productsGrid');
         grid.innerHTML = '';
+        const isAdmin = !!auth.currentUser;
+
         let filtered = allProducts;
         if (currentActiveCat !== 0) {
             const selAr = categories[currentActiveCat].ar;
-            const selEn = categories[currentActiveCat].en.toLowerCase();
-            filtered = allProducts.filter(p => (p.name_ar||"").includes(selAr) || (p.name_en||"").toLowerCase().includes(selEn));
+            filtered = allProducts.filter(p => (p.name_ar||"").includes(selAr));
         }
 
         filtered.slice(0, displayedCount).forEach((item) => {
             const name = currentLang === 'ar' ? item.name_ar : (item.name_en || item.name_ar);
-            const buyText = currentLang === 'ar' ? 'شراء الآن' : 'Buy Now';
-            const viewText = currentLang === 'ar' ? 'الصور' : 'Gallery';
             const buyLink = currentLang === 'ar' ? item.link_ar : (item.link_en || item.link_ar);
-            const soldNum = getSoldCount();
+            const albumLink = item.album_link && item.album_link !== "" ? item.album_link : buyLink;
+            
+            const prodRating = getRating(item.key);
+            const prodSales = getSales(item.key);
 
             grid.innerHTML += `
                 <div class="card">
-                    <img src="${item.images}" alt="${name}" loading="lazy">
+                    <div class="admin-actions" style="display: ${isAdmin ? 'flex' : 'none'}">
+                        <button class="admin-btn edit-btn" onclick="editProduct('${item.key}')"><i class="fas fa-edit"></i></button>
+                        <button class="admin-btn delete-btn" onclick="deleteProduct('${item.key}')"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <img src="${item.images}" loading="lazy">
                     <div class="card-body">
                         <span class="card-title">${name}</span>
-                        <div class="product-info">
-                            <div class="stars-sizes-row">
-                                <div><b>${currentLang==='ar'?'المقاس:':'Size:'}</b> ${item.sizes || '-'}</div>
-                                <div class="rating">${getDynamicStars()}</div>
-                            </div>
-                            <div class="info-row-flex">
-                                <div><b>${currentLang==='ar'?'الألوان:':'Colors:'}</b> ${item.colors || '-'}</div>
-                                <div class="sold-count-inline">${currentLang==='ar'?'مباع '+soldNum:'Sold '+soldNum}</div>
-                            </div>
+                        <div class="stars-sizes-row">
+                            <div><b>${currentLang==='ar'?'المقاس:':'Size:'}</b> ${item.sizes || '-'}</div>
+                            <div class="rating">${generateStars(prodRating)} <span class="rating-val">${prodRating}</span></div>
+                        </div>
+                        <div class="info-row-flex">
+                            <div><b>${currentLang==='ar'?'الألوان:':'Colors:'}</b> ${item.colors || '-'}</div>
+                            <div class="sold-count-inline">${currentLang==='ar' ? 'تم بيع ' : 'Sold '}${prodSales}</div>
                         </div>
                         <span class="price-tag">${item.price}<span class="currency-symbol">$</span></span>
                         <div class="card-actions">
-                            <a href="${buyLink}" target="_blank" class="btn-buy"><i class="fas fa-credit-card"></i> ${buyText}</a>
-                            <a href="${item.album_link || '#'}" target="_blank" class="btn-view"><i class="fas fa-images"></i> ${viewText}</a>
-                            <button class="btn-share" onclick="shareProduct(this, '${buyLink}')"><i class="fas fa-share-alt"></i></button>
+                            <a href="${buyLink}" target="_blank" class="btn-buy"><i class="fas fa-credit-card"></i> ${currentLang==='ar'?'شراء الآن':'Buy Now'}</a>
+                            <a href="${albumLink}" target="_blank" class="btn-view"><i class="fas fa-images"></i> ${currentLang==='ar'?'صور':'Gallery'}</a>
+                            <button class="btn-share" onclick="handleShareAction(this, '${buyLink}')"><i class="fas fa-share-alt"></i></button>
                         </div>
                     </div>
                 </div>`;
         });
         
-        // التحكم الراقي في زر عرض المزيد
-        const loadMoreSection = document.getElementById('loadMoreSection');
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-        const finishedMsg = document.getElementById('finishedMsg');
-        const loadMoreText = document.getElementById('loadMoreText');
+        // استدعاء دالة التحقق من ظهور الزر
+        handleLoadMoreVisibility(filtered.length);
+    }
 
-        if (filtered.length > 0) {
-            loadMoreSection.style.display = 'block';
-            setTimeout(() => loadMoreSection.style.opacity = '1', 100); // ظهور تدريجي
-
-            if (displayedCount >= filtered.length) {
-                loadMoreBtn.style.display = 'none';
-                finishedMsg.style.display = 'block';
-                finishedMsg.innerText = currentLang === 'ar' ? 'لقد شاهدت كل المنتجات' : 'You have seen it all';
-            } else {
-                loadMoreBtn.style.display = 'inline-flex';
-                finishedMsg.style.display = 'none';
-                loadMoreText.innerText = currentLang === 'ar' ? 'عرض المزيد' : 'Show More';
-            }
+    function handleLoadMoreVisibility(filteredLength) {
+        const sec = document.getElementById('loadMoreSection');
+        const btnText = document.getElementById('loadMoreBtn');
+        
+        // تحديث نص الزر حسب اللغة
+        btnText.innerText = currentLang === 'ar' ? 'عرض المزيد' : 'Load More';
+        
+        // يظهر الزر فقط إذا كان هناك منتجات لم تُعرض بعد
+        if (filteredLength > displayedCount) {
+            sec.style.display = 'block';
         } else {
-            loadMoreSection.style.display = 'none';
+            sec.style.display = 'none';
         }
     }
 
-    function shareProduct(btn, link) {
-        navigator.clipboard.writeText(link).then(() => {
-            btn.innerHTML = '<i class="fas fa-check" style="color:green"></i>';
-            setTimeout(() => { btn.innerHTML = '<i class="fas fa-share-alt"></i>'; }, 1500);
+    function handleShareAction(btn, link) {
+        const dummy = document.createElement("input");
+        document.body.appendChild(dummy);
+        dummy.value = link;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        const originalIcon = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        const toast = document.getElementById('copyToast');
+        toast.innerText = currentLang === 'ar' ? 'تم النسخ' : 'Copied';
+        toast.classList.add('show');
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = originalIcon;
+            toast.classList.remove('show');
+        }, 1500);
+    }
+
+    function saveProduct() {
+        const key = document.getElementById('editKey').value;
+        const data = {
+            name_ar: document.getElementById('pName').value,
+            name_en: document.getElementById('pNameEn').value,
+            price: document.getElementById('pPrice').value,
+            images: document.getElementById('pImg').value,
+            album_link: document.getElementById('pImgAlbum').value,
+            sizes: document.getElementById('pSizes').value,
+            colors: document.getElementById('pColors').value,
+            link_ar: document.getElementById('pLink').value,
+            link_en: document.getElementById('pLinkEn').value
+        };
+        if(key) db.ref('products/' + key).update(data).then(() => resetForm());
+        else db.ref('products').push(data).then(() => resetForm());
+    }
+
+    function editProduct(key) {
+        const p = allProducts.find(x => x.key === key);
+        document.getElementById('editKey').value = p.key;
+        document.getElementById('pName').value = p.name_ar;
+        document.getElementById('pPrice').value = p.price;
+        document.getElementById('pImg').value = p.images;
+        document.getElementById('pLink').value = p.link_ar;
+        document.getElementById('sidebar').classList.add('active');
+        document.getElementById('cancelEdit').style.display = "block";
+    }
+
+    function resetForm() {
+        document.querySelectorAll('.admin-form input').forEach(i => i.value = '');
+        document.getElementById('editKey').value = '';
+        document.getElementById('cancelEdit').style.display = "none";
+    }
+
+    function toggleLanguage() {
+        currentLang = (currentLang === 'ar') ? 'en' : 'ar';
+        document.getElementById('mainHtml').dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
+        document.getElementById('langBtn').innerText = (currentLang === 'ar') ? 'EN' : 'AR';
+        renderCategories(); renderProducts();
+    }
+
+    function renderCategories() {
+        const catBar = document.getElementById('categoryBar'); catBar.innerHTML = '';
+        categories.forEach((cat, index) => {
+            const btn = document.createElement('div');
+            btn.className = `cat-item ${index === currentActiveCat ? 'active' : ''}`;
+            btn.innerText = currentLang === 'ar' ? cat.ar : cat.en;
+            btn.onclick = () => { currentActiveCat = index; displayedCount = 12; renderProducts(); renderCategories(); };
+            catBar.appendChild(btn);
         });
     }
-
-    function toggleLoginBox() { 
-        const box = document.getElementById('loginBox');
-        box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    // 1. وظيفة تسجيل الدخول (تم تعديلها لفتح اللوحة فوراً)
-function checkLogin() {
-    const email = document.getElementById('adminEmail').value;
-    const pass = document.getElementById('adminPass').value;
-    auth.signInWithEmailAndPassword(email, pass)
-        .then(() => { 
-            document.getElementById('loginBox').style.display='none'; 
-            document.getElementById('sidebar').classList.add('active');
-        })
-        .catch(err => alert("خطأ في البيانات: " + err.message));
-}
-
-// 2. مراقب حالة الدخول (ضروري جداً لفتح اللوحة تلقائياً عند تحديث الصفحة)
-auth.onAuthStateChanged(user => {
-    const sidebar = document.getElementById('sidebar');
-    if (user) {
-        sidebar.classList.add('active'); // تفعيل اللوحة إذا كان المستخدم مسجل دخول بالفعل
-    } else {
-        sidebar.classList.remove('active'); // إخفاء اللوحة عند تسجيل الخروج
-    }
-});
-
-// 3. وظيفة حفظ المنتج (تأكد أنها موجودة في الكود لديك)
-function saveProduct() {
-    if(!auth.currentUser) {
-        alert("يجب تسجيل الدخول أولاً");
-        return;
-    }
-    db.ref('products').push({
-        name_ar: document.getElementById('pName').value,
-        name_en: document.getElementById('pNameEn').value,
-        price: document.getElementById('pPrice').value,
-        images: document.getElementById('pImg').value,
-        album_link: document.getElementById('pImgAlbum').value,
-        sizes: document.getElementById('pSizes').value,
-        colors: document.getElementById('pColors').value,
-        link_ar: document.getElementById('pLink').value,
-        link_en: document.getElementById('pLinkEn').value
-    }).then(() => {
-        alert("تم نشر المنتج بنجاح");
-        document.querySelectorAll('.admin-form input').forEach(i => i.value = '');
-    }).catch(err => alert("حدث خطأ: " + err.message));
-}
-
-
 
     function loadMore() { 
         displayedCount += 12; 
         renderProducts(); 
     }
+
+    function checkLogin() { auth.signInWithEmailAndPassword(document.getElementById('adminEmail').value, document.getElementById('adminPass').value); }
+    function toggleLoginBox() { const b = document.getElementById('loginBox'); b.style.display = b.style.display === 'flex' ? 'none' : 'flex'; }
 
     renderCategories();
 </script>
